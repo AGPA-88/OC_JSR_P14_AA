@@ -1,4 +1,17 @@
 .form-container{
+    border: solid 5px white;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+.form-container input{
+    border: solid 5px white;
+    margin: 10px;
+}
+
+.adress-container{
+    margin: 10px;
     border: solid 2px white;
     padding: 20px;
 }
