@@ -1,14 +1,21 @@
+import React, { useState } from "react";
 import './modal.css'
 
-const Modal = ({ isOpen, onClose, modalText }) => {
+
+const Modal = ({ isOpen, setStatus, modalText }) => {
+
+      const closeModal = () => {
+        setStatus(false);
+      };
+      
     if (!isOpen) return null;
-  
+    
     return (
         <div className='modal-background'>
             <div className="modal">
                 <div className="modal-content">
                 {modalText}
-                <span className="close" onClick={onClose}>
+                <span className="close" onClick={closeModal}>
                     &times;
                 </span>
                 </div>
