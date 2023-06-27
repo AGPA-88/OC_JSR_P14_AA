@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import './form.css'
+import Modal from "../Modal/modal";
 
 function Form () {
     const [formData, setFormData] = useState({
@@ -7,10 +8,18 @@ function Form () {
         email: '',
       });
 
+      const [modalOpen, setModalOpen] = React.useState(false);
+      const openModal = () => {
+        setModalOpen(true);
+      };
+    
+      const closeModal = () => {
+        setModalOpen(false);
+      };
+
       function saveButton(event) {
         console.log("Input First Name -> " + document.getElementById('firstName').value, "Input Last Name -> " + document.getElementById('lastName').value);
         console.log("Input Street -> " + document.getElementById('street').value, "Input City -> " + document.getElementById('city').value, "Input Zip Code -> " + document.getElementById('zip-code').value);
-        // console.log("FORM DATA " + formData.firstName, "FORM DATA " + formData.lastName);
         event.preventDefault();
     }
 
@@ -41,8 +50,9 @@ function Form () {
             </div>
             </div>
         </form>
+        <Modal isOpen={modalOpen} onClose={closeModal} modalText="New Employee Saved !!" />
             <div>
-                <button type="submit" onClick={saveButton}>SAVE</button>
+                <button type="submit" onClick={(e) => {saveButton(e); openModal();}}>SAVE</button>
             </div>
         </div>
     )
