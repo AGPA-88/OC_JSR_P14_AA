@@ -4,6 +4,9 @@ import Modal from "../Modal/modal";
 import DatePicker from "../Library/Date Picker/datePicker"
 import Dropdown from "../Library/Dropdown/dropdown"
 import { usStates } from "../../static/us_states";
+import { addEmployee } from '../../store/redux.js';
+import { useDispatch } from 'react-redux';
+import { Link } from "react-router-dom";
 
 function Form () {
     const [formData, setFormData] = useState({
@@ -21,6 +24,7 @@ function Form () {
       
       const statesList = usStates.map(usStateItem => usStateItem.name);
       const departmentList = departments.map(departmentItem => departmentItem);
+      const dispatch = useDispatch();
 
       const handleDropdownState = (selectedOption) => {
         console.log('Selected option:', selectedOption);
@@ -33,15 +37,34 @@ function Form () {
 
       
       function saveButton(event) {
-        console.log("Input First Name -> " + document.getElementById('firstName').value, "Input Last Name -> " + document.getElementById('lastName').value);
+        console.log("Input First Name -> " + formData.firstName, "Input Last Name -> " + formData.lastName);
         console.log("Input Street -> " + document.getElementById('street').value, "Input City -> " + document.getElementById('city').value, "Input Zip Code -> " + document.getElementById('zip-code').value);
         console.log("DOB -> " + dateOfBirth, "SD -> " + startDate);
         console.log("US State Selected -> " + usState,  "Department Selected -> " + department);
         event.preventDefault();
+        
+        dispatch(addEmployee({
+            firstName: document.querySelector('#firstName').value,
+            lastName: document.querySelector('#lastName').value,
+            dateOfBirth: dateOfBirth.toLocaleDateString("fr"),
+            startDate: startDate.toLocaleDateString("fr"),
+            department: department,
+            street: document.querySelector('#street').value,
+            city: document.querySelector('#city').value,
+            zipCode: document.querySelector('#zip-code').value,
+            usState: usState,
+            
+        }));
+        
     }
     
     return (
         <div className="form-container">
+            <div>
+                <Link to="/employees">
+                View Current Employees
+                </Link>
+            </div>
         <form>
             <div className="form-input">
                 First Name
@@ -91,7 +114,7 @@ function Form () {
                 />
             </div>
         </form>
-        <Modal isOpen={modalOpen} setStatus={setModalStatus} modalText="New Employee Saved !!" />
+        <Modal isOpen={modalOpen} setStatus={setModalStatus} modalText="New Employee Saved !" />
             <div>
                 <button type="submit" onClick={(e) => {saveButton(e); setModalStatus(true);}}>SAVE</button>
             </div>
