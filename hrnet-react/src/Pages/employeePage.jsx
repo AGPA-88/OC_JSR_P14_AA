@@ -2,6 +2,8 @@ import React from 'react';
 import MaterialTable from 'material-table'
 import { useSelector } from 'react-redux';
 import { ThemeProvider, createTheme } from "@mui/material";
+import { Link } from "react-router-dom";
+import './employee.css'
 
 // ICONS //
 
@@ -72,15 +74,25 @@ function EmployeePage() {
     });
 
     return (
-    <div>
+    <div className='table-page'>
+        <h1>
+            Current Employees
+        </h1>
         <ThemeProvider theme={defaultMaterialTheme}>
             <MaterialTable
                 icons={tableIcons}
                 columns={columns}
                 data={data}
+                title= ""
             />
         </ThemeProvider>
+        <div className='home-link'>
+                <Link to="/">
+                    Home
+                </Link>
+            </div>
     </div>
+    
     )
 }
       
