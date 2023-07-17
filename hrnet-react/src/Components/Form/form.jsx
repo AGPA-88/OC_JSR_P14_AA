@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import './form.css'
-import Modal from "../Modal/modal";
+import Modal from "agpa-react-modal-library";
 import DatePicker from "../Library/Date Picker/datePicker"
 import Dropdown from "../Library/Dropdown/dropdown"
 import { usStates } from "../../static/us_states";
@@ -15,8 +15,8 @@ function Form () {
       });
 
       const [modalOpen, setModalStatus] = useState(false);
-      const [dateOfBirth, setDateOfBirth] = useState("");
-      const [startDate, setStartDate] = useState("");
+      const [dateOfBirth, setDateOfBirth] = useState(new Date());
+      const [startDate, setStartDate] = useState(new Date());
       const [usState, setUsState] = useState("");
       const [department, setDepartment] = useState("");
 
@@ -35,8 +35,25 @@ function Form () {
         setDepartment(selectedOption);
       };
 
+
       
       function saveButton(event) {
+
+        const formInputs = document.querySelectorAll("input");
+        let isFormValid = true;
+
+        formInputs.forEach((input) => {
+            if (input.value === "") {
+              isFormValid = false;
+            }
+          });
+      
+          if (!isFormValid) {
+            alert("Please fill all inputs");
+            return;
+          }
+
+
         console.log("Input First Name -> " + formData.firstName, "Input Last Name -> " + formData.lastName);
         console.log("Input Street -> " + document.getElementById('street').value, "Input City -> " + document.getElementById('city').value, "Input Zip Code -> " + document.getElementById('zip-code').value);
         console.log("DOB -> " + dateOfBirth, "SD -> " + startDate);
@@ -55,46 +72,62 @@ function Form () {
             usState: usState,
             
         }));
+
+        setModalStatus(true);
         
     }
     
     return (
         <div className="form-container">
+            <h1>
+                HRnet
+            </h1>
             <div>
                 <Link to="/employees">
                 View Current Employees
                 </Link>
             </div>
+            <h1>
+                Create Employee
+            </h1>
         <form>
             <div className="form-input">
                 First Name
+                <br/>
                 <input type="text" name="firstName" id="firstName" value={formData.firstName}/>
             </div>
             <div className="form-input">
                 Last Name
+                <br/>
                 <input type="text" name="lastName" id="lastName" value={formData.lastName}/>
             </div>
 
             <div className="form-input">
-                Date of Birth:
+                Date of Birth
                 <DatePicker selectedDate={dateOfBirth} setSelectedDate={setDateOfBirth}/>
             </div>
             <div className="form-input">
-                Start Date:
+                Start Date
                 <DatePicker selectedDate={startDate} setSelectedDate={setStartDate} />
             </div>
 
             <div className="adress-container">
-                ADDRESS
+                <div className="adress-title">
+                    ADDRESS
+                </div>
                 <div className="form-input">
                     Street
+                    <br/>
                     <input type="text" name="street" id="street"/>
                 </div>
                 <div className="form-input">
                     City
+                    <br/>
                     <input type="text" name="city" id="city"/>
                 </div>
                 <div className="form-input">
+                    State
+                    <br/>
                     <Dropdown
                         options={statesList}
                         onChange={handleDropdownState}
@@ -103,10 +136,12 @@ function Form () {
                 </div>
                 <div className="form-input">
                     Zip Code
+                    <br/>
                     <input type="text" name="zip-code" id="zip-code"/>
                 </div>
             </div>
             <div className="form-input">
+                Department
                 <Dropdown
                     options={departmentList}
                     onChange={handleDropdownDepartment}
@@ -114,9 +149,10 @@ function Form () {
                 />
             </div>
         </form>
-        <Modal isOpen={modalOpen} setStatus={setModalStatus} modalText="New Employee Saved !" />
+        <Modal isOpen={modalOpen} setStatus={setModalStatus} modalText="Employee Created!" />
+        <br/>
             <div>
-                <button type="submit" onClick={(e) => {saveButton(e); setModalStatus(true);}}>SAVE</button>
+                <button type="submit" onClick={(e) => {saveButton(e);}}>SAVE</button>
             </div>
         </div>
     )
