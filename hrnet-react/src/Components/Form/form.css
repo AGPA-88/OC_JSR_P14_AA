@@ -1,5 +1,4 @@
 .form-container{
-    border: solid 5px red;
     padding: 20px;
     display: flex;
     flex-direction: column;
