@@ -11,7 +11,7 @@
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
-    "agpa-react-modal-library": "^2.0.0",
+    "agpa-react-modal-library": "^3.0.0",
     "material-react-table": "^1.14.0",
     "react": "^18.2.0",
     "react-datepicker": "^4.14.1",
