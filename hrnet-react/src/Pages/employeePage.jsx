@@ -51,7 +51,6 @@ const tableIcons = {
 
 function EmployeePage() {
     const employees = useSelector((state) => state.employees);
-    console.log(employees);
 
     const columns = [
         { title: 'First Name', field: 'firstName' },
