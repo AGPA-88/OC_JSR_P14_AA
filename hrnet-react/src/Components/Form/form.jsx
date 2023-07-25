@@ -142,7 +142,9 @@ function Form () {
                 />
             </div>
         </form>
-        <Modal isOpen={modalOpen} setStatus={setModalStatus} modalText="Employee Created!" />
+        <Modal isOpen={modalOpen} setStatus={setModalStatus} modalText="Employee Created!"  style={
+            {bgColor:"RGB(0, 0, 0, 0.3)"}
+            }/>
         <br/>
             <div>
                 <button type="submit" onClick={(e) => {saveButton(e);}}>SAVE</button>
