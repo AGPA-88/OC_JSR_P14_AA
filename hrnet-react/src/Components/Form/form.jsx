@@ -27,11 +27,9 @@ function Form () {
       const dispatch = useDispatch();
 
       const handleDropdownState = (selectedOption) => {
-        console.log('Selected option:', selectedOption);
         setUsState(selectedOption);
       };
       const handleDropdownDepartment = (selectedOption) => {
-        console.log('Selected option:', selectedOption);
         setDepartment(selectedOption);
       };
 
@@ -52,12 +50,7 @@ function Form () {
             alert("Please fill all inputs");
             return;
           }
-
-
-        console.log("Input First Name -> " + formData.firstName, "Input Last Name -> " + formData.lastName);
-        console.log("Input Street -> " + document.getElementById('street').value, "Input City -> " + document.getElementById('city').value, "Input Zip Code -> " + document.getElementById('zip-code').value);
-        console.log("DOB -> " + dateOfBirth, "SD -> " + startDate);
-        console.log("US State Selected -> " + usState,  "Department Selected -> " + department);
+          
         event.preventDefault();
         
         dispatch(addEmployee({
